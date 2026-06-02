@@ -14,7 +14,6 @@ import {
   Wifi
 } from "lucide-react";
 import LeadForm from "../components/LeadForm";
-import AIAssistant from "../components/AIAssistant";
 import HomeVideoShowcase from "../components/HomeVideoShowcase";
 import SEO from "../components/SEO";
 import { homeFaqs } from "../data/faqs";
@@ -84,6 +83,7 @@ const amenities = [
 
 const stories = [
   {
+    slug: "konkan-smart-money-2026",
     tag: "Investment",
     title: "Why the Konkan belt is attracting second-home buyers",
     text: "A closer look at access, lifestyle appeal, and the questions careful buyers ask.",
@@ -91,6 +91,7 @@ const stories = [
     image: siteConfig.assets.landscape
   },
   {
+    slug: "mumbai-buyer-konkan-plot-checklist",
     tag: "Buyer Guide",
     title: "What to review before signing for a Konkan plot",
     text: "Title records, NA documentation, access, and an independent due-diligence checklist.",
@@ -98,6 +99,7 @@ const stories = [
     image: siteConfig.assets.plots
   },
   {
+    slug: "weekend-at-serenity-hills",
     tag: "Life on the Hill",
     title: "A weekend in Dapoli: sea air, hill views, slow mornings",
     text: "The kind of visit that helps families decide whether a second home fits.",
@@ -113,7 +115,7 @@ export default function Home({ onEnquire }) {
     <>
       <SEO
         title="Serenity Hills - Private Hill-Station Estate in Dapoli | NA Plots & Villas"
-        description="Explore Serenity Hills Dapoli with NA plot opportunities, villa possibilities, click-to-play YouTube videos, AI enquiry support, FAQs, pricing guidance, and guided site visits."
+        description="Explore Serenity Hills Dapoli with NA plot opportunities, villa possibilities, click-to-play YouTube videos, FAQs, pricing guidance, and guided site visits."
         schema={[
           organizationSchema(),
           faqSchema(faqs),
@@ -267,7 +269,7 @@ export default function Home({ onEnquire }) {
                     <span>{story.text}</span>
                     <small>{story.date}</small>
                   </div>
-                  <a href="/blog">Read article <ArrowRight size={15} /></a>
+                  <a href={`/blog/${story.slug}`}>Read article <ArrowRight size={15} /></a>
                 </article>
               ))}
             </div>
@@ -324,7 +326,6 @@ export default function Home({ onEnquire }) {
           </div>
         </section>
       </main>
-      <AIAssistant />
     </>
   );
 }
