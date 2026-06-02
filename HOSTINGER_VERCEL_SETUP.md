@@ -104,3 +104,28 @@ api/
 - Main form stores data in Google Sheet.
 - Stay form stores data in Google Sheet.
 - Brochure flow works.
+
+## Fixing `Origin is not allowed`
+
+This means the form is coming from a domain that is not listed in Vercel `ALLOWED_ORIGINS`.
+
+Your production value should normally be:
+
+```env
+ALLOWED_ORIGINS=https://www.serenityhills.in,https://serenityhills.in
+```
+
+If you are testing from another domain, add that exact origin too. Examples:
+
+```env
+ALLOWED_ORIGINS=https://www.serenityhills.in,https://serenityhills.in,https://your-hostinger-temporary-domain.com,https://your-vercel-preview.vercel.app
+```
+
+Important rules:
+
+- Use origin only: protocol + domain.
+- Do not include paths like `/contact`.
+- Do not include trailing slash.
+- After changing Vercel Environment Variables, redeploy the Vercel API.
+
+To find the origin, open browser DevTools -> Network -> failed `/api/leads` request -> Request Headers -> `Origin`.

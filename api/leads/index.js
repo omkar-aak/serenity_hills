@@ -20,12 +20,18 @@ export default async function handler(req, res) {
       success: true,
       service: "serenity-hills-lead-api",
       configured: Boolean(getSheetsWebhookUrl({ formType: "enquiry" })),
+      receivedOrigin: origin || null,
       allowedOrigins
     });
   }
   if (req.method !== "POST") return res.status(405).json({ success: false, message: "Method not allowed." });
   if (origin && !allowedOrigins.includes(origin)) {
-    return res.status(403).json({ success: false, message: "Origin is not allowed." });
+    return res.status(403).json({
+      success: false,
+      message: "Origin is not allowed.",
+      receivedOrigin: origin,
+      allowedOrigins
+    });
   }
 
   try {

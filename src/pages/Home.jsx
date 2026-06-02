@@ -308,7 +308,7 @@ export default function Home({ onEnquire }) {
                 <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
               </address>
             </div>
-            <div className="home-form-card"><LeadForm formType="homepage" compact /></div>
+            <div className="home-form-card"><LeadForm formType="Download Brochure" compact /></div>
           </div>
         </section>
 
