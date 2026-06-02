@@ -4,17 +4,25 @@ const allowedInterests = new Set(["Plot", "Villa", "Site Visit", "Investment", "
 const allowedContactMethods = new Set(["WhatsApp", "Call", "Email"]);
 
 export default async function handler(req, res) {
-  const origin = req.headers.origin || "";
-  const allowedOrigins = (process.env.ALLOWED_ORIGINS || DEFAULT_ALLOWED_ORIGINS).split(",").map((item) => item.trim());
+  const origin = normalizeOrigin(req.headers.origin || "");
+  const allowedOrigins = parseAllowedOrigins();
   const corsOrigin = allowedOrigins.includes(origin) ? origin : allowedOrigins[0];
   let requestBody = {};
 
   res.setHeader("Access-Control-Allow-Origin", corsOrigin);
   res.setHeader("Vary", "Origin");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept");
 
   if (req.method === "OPTIONS") return res.status(204).end();
+  if (req.method === "GET") {
+    return res.status(200).json({
+      success: true,
+      service: "serenity-hills-lead-api",
+      configured: Boolean(getSheetsWebhookUrl({ formType: "enquiry" })),
+      allowedOrigins
+    });
+  }
   if (req.method !== "POST") return res.status(405).json({ success: false, message: "Method not allowed." });
   if (origin && !allowedOrigins.includes(origin)) {
     return res.status(403).json({ success: false, message: "Origin is not allowed." });
@@ -72,6 +80,24 @@ export default async function handler(req, res) {
       success: false,
       message: "We could not submit your enquiry. Please try again or contact us on WhatsApp."
     });
+  }
+}
+
+function parseAllowedOrigins() {
+  return (process.env.ALLOWED_ORIGINS || DEFAULT_ALLOWED_ORIGINS)
+    .split(",")
+    .map((item) => normalizeOrigin(item))
+    .filter(Boolean);
+}
+
+function normalizeOrigin(value = "") {
+  const trimmed = String(value).trim().replace(/\/+$/, "");
+  if (!trimmed) return "";
+
+  try {
+    return new URL(trimmed).origin;
+  } catch {
+    return trimmed;
   }
 }
 

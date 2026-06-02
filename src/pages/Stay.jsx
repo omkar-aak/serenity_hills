@@ -277,8 +277,10 @@ function StayEnquiryForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
-      const data = await response.json().catch(() => ({}));
-      if (!response.ok || !data.success) throw new Error(data.message || "Submission failed");
+      const data = await parseLeadApiResponse(response);
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || `Lead API returned HTTP ${response.status}.`);
+      }
       trackEvent("lead_submitted", { formType: "Stay Page Form", buyerInterest: "Villa" });
       setStatus("success");
       setValues(initialStayValues);
@@ -286,7 +288,7 @@ function StayEnquiryForm() {
       window.setTimeout(() => setStatus("idle"), 6000);
     } catch (error) {
       setStatus("error");
-      setServerMessage(error.message || "We could not submit your enquiry. Please contact the team on WhatsApp.");
+      setServerMessage(getSubmissionErrorMessage(error));
     }
   }
 
@@ -314,4 +316,26 @@ function StayEnquiryForm() {
 
 function Field({ label, error, ...props }) {
   return <label>{label}<input {...props} />{error && <small>{error}</small>}</label>;
+}
+
+function getSubmissionErrorMessage(error) {
+  if (error?.message === "Failed to fetch") {
+    return "Could not reach the lead API. Please check the Vercel API URL and allowed origins.";
+  }
+
+  return error?.message || "We could not submit your enquiry. Please contact the team on WhatsApp.";
+}
+
+async function parseLeadApiResponse(response) {
+  const text = await response.text();
+  if (!text) return {};
+
+  try {
+    return JSON.parse(text);
+  } catch {
+    return {
+      success: false,
+      message: `Lead API returned HTTP ${response.status} with a non-JSON response. Check Vercel API URL/path.`
+    };
+  }
 }

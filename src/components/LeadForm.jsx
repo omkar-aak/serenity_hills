@@ -71,14 +71,16 @@ export default function LeadForm({ formType = "enquiry", compact = false }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
-      const data = await response.json().catch(() => ({}));
-      if (!response.ok || !data.success) throw new Error(data.message || "Lead submission failed");
+      const data = await parseLeadApiResponse(response);
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || `Lead API returned HTTP ${response.status}.`);
+      }
       trackEvent("lead_submitted", { formType, buyerInterest: values.buyerInterest });
       downloadBrochure();
       showSuccess();
     } catch (error) {
       setStatus("error");
-      setServerMessage(error.message || "We could not submit your enquiry. Please try again or contact us on WhatsApp.");
+      setServerMessage(getSubmissionErrorMessage(error));
     }
   }
 
@@ -134,6 +136,28 @@ export default function LeadForm({ formType = "enquiry", compact = false }) {
       )}
     </>
   );
+}
+
+function getSubmissionErrorMessage(error) {
+  if (error?.message === "Failed to fetch") {
+    return "Could not reach the lead API. Please check the Vercel API URL and allowed origins.";
+  }
+
+  return error?.message || "We could not submit your enquiry. Please try again or contact us on WhatsApp.";
+}
+
+async function parseLeadApiResponse(response) {
+  const text = await response.text();
+  if (!text) return {};
+
+  try {
+    return JSON.parse(text);
+  } catch {
+    return {
+      success: false,
+      message: `Lead API returned HTTP ${response.status} with a non-JSON response. Check Vercel API URL/path.`
+    };
+  }
 }
 
 function downloadBrochure() {
