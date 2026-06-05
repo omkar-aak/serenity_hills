@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:hostinger": "vite build --mode hostinger",
+    "build:hostinger": "node tools/validate_hostinger_env.mjs && vite build --mode hostinger",
     "preview": "vite preview",
     "lint": "eslint ."
   },
