@@ -8,7 +8,7 @@ import { initAnalytics } from "./utils/analytics";
 
 initAnalytics();
 
-ReactGA.initialize("G-67LYP968YK");
+ReactGA.initialize(import.meta.env.VITE_GA4_ID || "G-10P3CSQBWE");
 ReactGA.send({
   hitType: "pageview",
   page: window.location.pathname + window.location.search
