@@ -1,4 +1,5 @@
-import { lazy, Suspense, useState, useEffect } from "react";
+import { lazy, Suspense, useState, useEffect, useRef } from "react";
+import ReactGA from "react-ga4";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import CookieBanner from "./components/CookieBanner";
 import Footer from "./components/Footer";
@@ -30,6 +31,22 @@ function ScrollToTop() {
   return null;
 }
 
+function AnalyticsPageViewTracker() {
+  const location = useLocation();
+  const lastTrackedPage = useRef(location.pathname + location.search);
+
+  useEffect(() => {
+    const page = location.pathname + location.search;
+
+    if (page === lastTrackedPage.current) return;
+
+    lastTrackedPage.current = page;
+    ReactGA.send({ hitType: "pageview", page });
+  }, [location.pathname, location.search]);
+
+  return null;
+}
+
 function NavigateToBlogPost() {
   const { pathname } = useLocation();
   const slug = pathname.split("/").filter(Boolean).pop();
@@ -42,6 +59,7 @@ export default function App() {
 
   return (
     <CookieConsentProvider>
+      <AnalyticsPageViewTracker />
       <ScrollToTop />
       <Header onEnquire={openModal} />
       <Suspense fallback={<main className="grid min-h-[60vh] place-items-center bg-sand text-forest">Loading Serenity Hills...</main>}>
