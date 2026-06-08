@@ -260,8 +260,7 @@ export default function Home({ onEnquire }) {
             </div>
             <div className="home-story-grid">
               {stories.map((story) => (
-                <article className="home-story" key={story.title}>
-                  <div className="home-story-image">
+                <article className="home-story" key={story.title}>                  <div className="home-story-image">
                     <img src={story.image} alt={`${story.title} at Serenity Hills Dapoli`} width="640" height="360" loading="lazy" decoding="async" />
                   </div>
                   <div className="home-story-body">
