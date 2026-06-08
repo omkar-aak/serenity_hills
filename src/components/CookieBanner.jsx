@@ -13,24 +13,24 @@ export default function CookieBanner() {
   return (
     <>
       {bannerOpen && (
-        <section className="fixed inset-x-0 bottom-20 z-[60] mx-auto w-[min(100%-1rem,980px)] animate-cookie-in rounded-lg border border-forest/10 bg-white/96 p-4 text-stone-700 shadow-2xl backdrop-blur md:bottom-6 md:w-[min(100%-2rem,760px)] lg:p-4" aria-label="Cookie consent banner">
-          <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-center">
+        <section className="fixed bottom-4 left-4 right-4 z-[60] animate-cookie-in rounded-lg border border-forest/10 bg-white/96 p-4 text-stone-700 shadow-2xl backdrop-blur sm:left-auto sm:right-5 sm:bottom-5 sm:w-[min(390px,calc(100vw-2.5rem))]" aria-label="Cookie consent banner">
+          <div className="grid gap-3">
             <div className="pr-8">
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-clay">Cookie consent</p>
-              <h2 className="mt-1 font-serif text-2xl font-semibold text-forest">Your Privacy Matters</h2>
-              <p className="mt-2 text-sm leading-6">
+              <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-clay">Cookie consent</p>
+              <h2 className="mt-1 font-serif text-xl font-semibold leading-tight text-forest">Your Privacy Matters</h2>
+              <p className="mt-2 text-xs leading-5">
                 We use cookies to improve your browsing experience, analyze website traffic, and support relevant marketing communication. You can accept all cookies or manage your preferences.
                 {" "}<Link className="font-semibold text-forest underline-offset-4 hover:underline" to="/privacy-policy">Privacy Policy</Link>
               </p>
             </div>
-            <div className="grid gap-2 sm:grid-cols-3 lg:min-w-[380px]">
-              <button type="button" className="btn-primary" onClick={acceptAll}>Accept All</button>
-              <button type="button" className="cookie-secondary" onClick={rejectOptional}>Reject Non-Essential</button>
-              <button type="button" className="cookie-secondary" onClick={openPreferences}>Manage Preferences</button>
+            <div className="grid gap-2">
+              <button type="button" className="btn-primary min-h-10 px-4 py-2 text-xs" onClick={acceptAll}>Accept All</button>
+              <button type="button" className="cookie-secondary min-h-10 px-4 py-2 text-xs" onClick={rejectOptional}>Reject Non-Essential</button>
+              <button type="button" className="cookie-secondary min-h-10 px-4 py-2 text-xs" onClick={openPreferences}>Manage Preferences</button>
             </div>
           </div>
-          <button type="button" className="absolute right-3 top-3 rounded-full p-2 text-stone-600 transition hover:bg-sand focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest" onClick={dismissBanner} aria-label="Close cookie banner">
-            <X size={18} />
+          <button type="button" className="absolute right-2.5 top-2.5 rounded-full p-1.5 text-stone-600 transition hover:bg-sand focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest" onClick={dismissBanner} aria-label="Close cookie banner">
+            <X size={16} />
           </button>
         </section>
       )}
