@@ -1431,6 +1431,16 @@ textarea {
   padding-block: 15px;
 }
 
+.home-stay-form-bottom {
+  background: #f3efe4;
+  padding: clamp(24px, 5vw, 56px) 20px;
+}
+
+.home-stay-form-wrap {
+  width: min(676px, 100%);
+  margin: 0 auto;
+}
+
 .home-final {
   text-align: center;
 }
@@ -3174,7 +3184,7 @@ textarea {
   width: 100%;
   height: 100%;
   border-radius: 24px;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
 }
 
@@ -5768,7 +5778,7 @@ textarea {
   }
 
   .plots-plan-canvas {
-    aspect-ratio: 1.1 / 1;
+    aspect-ratio: 16 / 9;
   }
 
   .plots-node strong {

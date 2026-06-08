@@ -1,5 +1,4 @@
 import { lazy, Suspense, useState, useEffect, useRef } from "react";
-import ReactGA from "react-ga4";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import CookieBanner from "./components/CookieBanner";
 import Footer from "./components/Footer";
@@ -41,7 +40,23 @@ function AnalyticsPageViewTracker() {
     if (page === lastTrackedPage.current) return;
 
     lastTrackedPage.current = page;
-    ReactGA.send({ hitType: "pageview", page });
+    if (typeof window.gtag === "function" && import.meta.env.VITE_GA4_ID) {
+      window.gtag("config", import.meta.env.VITE_GA4_ID, {
+        page_path: page,
+        page_title: document.title
+      });
+      return;
+    }
+
+    window.dispatchEvent(new CustomEvent("serenity:analytics", {
+      detail: {
+        name: "page_view",
+        payload: {
+          page_path: page,
+          page_title: document.title
+        }
+      }
+    }));
   }, [location.pathname, location.search]);
 
   return null;

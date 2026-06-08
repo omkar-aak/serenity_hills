@@ -1,6 +1,39 @@
 <!doctype html>
 <html lang="en-IN">
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=%VITE_GA4_ID%"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+
+      (function() {
+        var consent = {
+          analytics_storage: "denied",
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied"
+        };
+
+        try {
+          var savedConsent = JSON.parse(localStorage.getItem("serenity_cookie_consent") || "null");
+          if (savedConsent && savedConsent.analytics) consent.analytics_storage = "granted";
+          if (savedConsent && savedConsent.marketing) {
+            consent.ad_storage = "granted";
+            consent.ad_user_data = "granted";
+            consent.ad_personalization = "granted";
+          }
+        } catch (error) {
+          // Keep tracking consent denied if saved preferences cannot be read.
+        }
+
+        gtag("consent", "default", consent);
+      })();
+
+      gtag("js", new Date());
+      gtag("config", "%VITE_GA4_ID%");
+    </script>
+    <!-- End Google tag -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/assets/logos/serenity-hills-logo.png" />

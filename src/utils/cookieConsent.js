@@ -53,7 +53,7 @@ export function updateGoogleConsentMode(consent) {
 }
 
 export function canLoadAnalytics(consent) {
-  return Boolean(consent?.analytics && (import.meta.env.VITE_GA4_ID || import.meta.env.VITE_GTM_ID));
+  return Boolean(consent?.analytics && import.meta.env.VITE_GA4_ID);
 }
 
 export function canLoadMarketing(consent) {
