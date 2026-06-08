@@ -16,6 +16,7 @@ import {
 import LeadForm from "../components/LeadForm";
 import HomeVideoShowcase from "../components/HomeVideoShowcase";
 import SEO from "../components/SEO";
+import StayEnquiryForm from "../components/StayEnquiryForm";
 import { homeFaqs } from "../data/faqs";
 import { growthFaqs, showcaseVideos } from "../data/homeGrowth";
 import { siteConfig } from "../data/siteConfig";
@@ -323,6 +324,12 @@ export default function Home({ onEnquire }) {
               <button className="home-btn home-btn-gold" type="button" onClick={onEnquire}>Book a Site Visit <ArrowRight size={16} /></button>
               <a className="home-btn home-btn-ghost" href={getWhatsAppUrl()} target="_blank" rel="noreferrer"><MessageCircle size={17} /> Chat on WhatsApp</a>
             </div>
+          </div>
+        </section>
+
+        <section className="home-stay-form-bottom" id="stay-booking">
+          <div className="home-stay-form-wrap">
+            <StayEnquiryForm />
           </div>
         </section>
       </main>

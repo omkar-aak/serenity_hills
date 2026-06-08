@@ -31,7 +31,7 @@ export const siteConfig = {
     beach: "/assets/images/dapoli-beach-lifestyle.jpg",
     forts: "/assets/images/dapoli-tourism-forts-optimized.jpg",
     seasons: "/assets/images/konkan-seasons.png",
-    masterPlan: "/assets/images/Master_Plan.png",
+    masterPlan: "/assets/images/Master_Plan_Final.png",
     plots: "/assets/images/serenity-hills-plots.png",
     overview: "/assets/images/serenity-hills-overview-optimized.jpg"
   }
