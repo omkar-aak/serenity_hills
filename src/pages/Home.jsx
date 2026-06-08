@@ -30,6 +30,7 @@ const ownershipPaths = [
     text: "Secure a verified NA plot. Land-bank for the future or build at your own pace, with documentation available for review.",
     meta: "3,000 - 4,000 sq ft  |  NA plot opportunity",
     link: "See plot inventory",
+    href: "/plots",
     className: "land"
   },
   {
@@ -39,6 +40,7 @@ const ownershipPaths = [
     text: "Boutique villa, twin home, or holiday retreat, shaped with a managed second-home development conversation.",
     meta: "Turnkey concepts  |  2-4 bedroom",
     link: "See villa options",
+    href: "/villas",
     className: "villa"
   },
   {
@@ -48,6 +50,7 @@ const ownershipPaths = [
     text: "Spend a weekend exploring Dapoli and the estate setting before deciding. Visits are coordinated by appointment.",
     meta: "Visit planning  |  By appointment",
     link: "Request a visit",
+    href: "/stay",
     className: "stay"
   }
 ];
@@ -129,13 +132,13 @@ export default function Home({ onEnquire }) {
           <div className="home-hero-bg" aria-hidden="true" />
           <div className="home-hero-grid" aria-hidden="true" />
           <div className="home-container home-hero-content">
-            <p className="home-badge"><span />Private Estate - Dapoli, Konkan</p>
+            <p className="home-badge"><span />Private Hill Station, Dapoli</p>
             <h1>Nature crafted.<br /><em>Soul approved.</em></h1>
             <p className="home-hero-sub">
               48 villa plots across 15 acres of Western Ghats hill country, with a guided, documentation-first ownership conversation.
             </p>
             <div className="home-pills">
-              <span><Check size={13} /> NA documentation conversation</span>
+              <span><Check size={13} /> NA documentation </span>
               <span><Check size={13} /> 15 acres - 48 plots</span>
             </div>
             <div className="home-actions">
@@ -165,7 +168,7 @@ export default function Home({ onEnquire }) {
             <MapIllustration />
             <div className="home-copy">
               <p className="home-eyebrow">Why Dapoli - Why now</p>
-              <h2>A coastal hill within a weekend&apos;s reach.</h2>
+              <h2>A Private hill within a weekend&apos;s reach.</h2>
               <ul className="home-distance">
                 <li><span>From Pune</span><strong>190 km - approx. 4 hr drive</strong></li>
                 <li><span>From Mumbai</span><strong>230 km - approx. 5 hr drive</strong></li>
@@ -193,7 +196,7 @@ export default function Home({ onEnquire }) {
                   <h3>{path.title}</h3>
                   <p className="home-path-text">{path.text}</p>
                   <p className="home-path-meta">{path.meta}</p>
-                  <a className="home-text-link" href="#contact">{path.link} <ArrowRight size={15} /></a>
+                  <a className="home-text-link" href={path.href}>{path.link} <ArrowRight size={15} /></a>
                 </article>
               ))}
             </div>
